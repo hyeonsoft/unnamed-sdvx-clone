@@ -33,6 +33,7 @@ private:
 	String m_jacketPath;
 	uint32 m_timedHits[2];
 	float m_meanHitDelta;
+	float m_lightsTimer = 0.0f;
 	MapTime m_medianHitDelta;
 	ScoreIndex m_scoredata;
 	bool m_restored = false;
@@ -45,6 +46,7 @@ private:
 	Texture m_jacketImage;
 	Texture m_graphTex;
 	GameFlags m_flags;
+	Color m_lightsColor;
 
 	void m_PushStringToTable(const char* name, String data)
 	{
@@ -90,6 +92,7 @@ public:
 		m_flags = game->GetFlags();
 		m_highScores = game->GetDifficultyIndex().scores;
 		m_scoredata.score = m_score;
+		memcpy(m_categorizedHits, scoring.categorizedHits, sizeof(scoring.categorizedHits));
 		m_scoredata.crit = m_categorizedHits[2];
 		m_scoredata.almost = m_categorizedHits[1];
 		m_scoredata.miss = m_categorizedHits[0];
@@ -97,7 +100,6 @@ public:
 		m_scoredata.gameflags = (uint32)m_flags;
 		m_manualExit = game->GetManualExit();
 
-		memcpy(m_categorizedHits, scoring.categorizedHits, sizeof(scoring.categorizedHits));
 		m_meanHitDelta = scoring.GetMeanHitDelta();
 		m_medianHitDelta = scoring.GetMedianHitDelta();
 		for (HitStat* stat : scoring.hitStats)
@@ -163,6 +165,26 @@ public:
 		m_graphTex->SetData(Vector2i(256, 1), graphPixels);
 		m_graphTex->SetWrap(Graphics::TextureWrap::Clamp, Graphics::TextureWrap::Clamp);
 
+		int badge = Scoring::CalculateBadge(m_scoredata);
+
+		switch (badge)
+		{
+		case 1:
+			m_lightsColor = Color::FromHSV(0, 1.0, 0.5);
+			break;
+		case 2:
+			m_lightsColor = Color::FromHSV(180, 1.0, 0.8);
+			break;
+		case 3:
+			m_lightsColor = Color::FromHSV(10, 1.0, 0.8);
+			break;
+		case 4:
+			m_lightsColor = Color::FromHSV(120, 1.0, 0.8);
+			break;
+		case 5:
+			m_lightsColor = Color::FromHSV(30, 1.0, 0.8);
+			break;
+		}
 	}
 	~ScoreScreen_Impl()
 	{
@@ -292,6 +314,21 @@ public:
 	virtual void Tick(float deltaTime) override
 	{
 		m_showStats = g_input.GetButton(Input::Button::FX_0);
+
+		m_lightsTimer += deltaTime * 2;
+		m_lightsTimer = fmodf(m_lightsTimer, Math::pi * 2);
+		float lightBreathe = (sinf(m_lightsTimer) + 1.0) * 0.4 + 0.2;
+		Color tempCol = (m_lightsColor * lightBreathe);
+		Colori rgbColor = tempCol.ToRGBA8();
+
+		for (size_t i = 0; i < 2; i++)
+		{
+			for (size_t j = 0; j < 3; j++)
+			{
+				g_application->SetRgbLights(i, j, rgbColor);
+			}
+		}
+		g_application->SetButtonLights(0);
 	}
 
 	virtual void OnSuspend()
