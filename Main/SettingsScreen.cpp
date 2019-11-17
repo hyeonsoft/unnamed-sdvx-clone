@@ -589,6 +589,8 @@ public:
 				ToggleSetting(GameConfigKeys::CheckForUpdates, "Check for updates on startup");
 				ToggleSetting(GameConfigKeys::OnlyRelease, "Only check for new release versions");
 
+				StringSelectionSetting(GameConfigKeys::LightPlugin, g_application->GetLightPluginList(), "Light Plugin:");
+
 				nk_tree_pop(m_nctx);
 			}
 

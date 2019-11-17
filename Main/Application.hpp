@@ -92,7 +92,10 @@ public:
 	void RunUpdater();
 	void ForceRender();
 	void SetLuaBindings(struct lua_State* state);
+	Vector<String> GetLightPluginList();
 	struct NVGcontext* GetVGContext();
+	void SetRgbLights(int left, int pos, Colori color);
+	void SetButtonLights(uint32 buttonbits);
 
 	//if empty: no update avaiable
 	//else: index 0 = url, index 1 = version
@@ -109,6 +112,7 @@ private:
 	void m_OnKeyPressed(int32 key);
 	void m_OnKeyReleased(int32 key);
 	void m_OnWindowResized(const Vector2i& newSize);
+	void m_InitLightPlugins();
 
 	RenderState m_renderStateBase;
 	RenderQueue m_renderQueueBase;
@@ -136,8 +140,10 @@ private:
 	String m_currentVersion;
 	String m_skin;
 	Timer m_jobTimer;
+	struct LightPlugin* m_activeLightPlugin = nullptr;
 	//gauge colors, 0 = normal fail, 1 = normal clear, 2 = hard lower, 3 = hard upper
 	Color m_gaugeColors[4] = { Colori(0, 204, 255), Colori(255, 102, 255), Colori(200, 50, 0), Colori(255, 100, 0) };
+	Map<String, struct LightPlugin> m_lightPlugins;
 
 	String m_multiRoomSecret;
 	String m_multiRoomId;

@@ -113,6 +113,8 @@ DefineEnum(GameConfigKeys,
 	OnlyRelease,
 	LimitSettingsFont,
 
+	LightPlugin,
+
 	// Multiplayer
 	MultiplayerHost,
 	MultiplayerPassword,
