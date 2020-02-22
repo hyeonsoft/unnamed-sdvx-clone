@@ -518,7 +518,7 @@ public:
 		m_lightsTimer += deltaTime * 2;
 		m_lightsTimer = fmodf(m_lightsTimer, Math::pi * 2);
 		float lightBreathe = (sinf(m_lightsTimer) + 1.0) * 0.4 + 0.2;
-		Color tempCol = (m_lightsColor * lightBreathe);
+		Color tempCol(m_lightsColor * lightBreathe);
 		Colori rgbColor = tempCol.ToRGBA8();
 
 		for (size_t i = 0; i < 2; i++)
