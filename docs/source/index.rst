@@ -24,6 +24,8 @@ Contents:
    skinsettings
    http
    bgfg
+   collectiondialog
+   shadedmesh
 
 
 Indices and tables
