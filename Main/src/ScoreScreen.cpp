@@ -405,6 +405,7 @@ public:
 		m_PushStringToTable("effector", m_beatmapSettings.effector);
 		m_PushStringToTable("bpm", m_beatmapSettings.bpm);
 		m_PushStringToTable("jacketPath", m_jacketPath);
+		m_PushStringToTable("chartPath", m_beatmapSettings.chartPath);
 		m_PushIntToTable("medianHitDelta", m_medianHitDelta[0]);
 		m_PushFloatToTable("meanHitDelta", m_meanHitDelta[0]);
 		m_PushIntToTable("medianHitDeltaAbs", m_medianHitDelta[1]);
