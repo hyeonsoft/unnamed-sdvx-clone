@@ -237,6 +237,7 @@ public:
 				pushIntToTable("level", chart->level);
 				pushIntToTable("difficulty", chart->diff_index);
 				pushIntToTable("jacket", m_jacketImg);
+				pushStringToTable("chartPath", chart->path.c_str());
 			}
 			else
 			{
@@ -249,6 +250,7 @@ public:
 				pushIntToTable("level", 1);
 				pushIntToTable("difficulty", 0);
 				pushIntToTable("jacket", m_jacketImg);
+				pushStringToTable("chartPath", "");
 			}
 
 			lua_setglobal(m_songlua, "song");

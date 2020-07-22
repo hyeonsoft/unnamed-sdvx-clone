@@ -610,7 +610,7 @@ void  MultiplayerScreen::GetMapBPMForSpeed(String path, struct MultiplayerBPMInf
 		return;
 	}
 	FileReader reader(mapFile);
-	if (!newMap->Load(reader))
+	if (!newMap->Load(reader, path))
 	{
 		delete newMap;
 		info = { 0, 0, 0, 0 };

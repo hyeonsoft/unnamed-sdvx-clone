@@ -42,10 +42,10 @@ Beatmap& Beatmap::operator=(Beatmap&& other)
 	m_settings = std::move(other.m_settings);
 	return *this;
 }
-bool Beatmap::Load(BinaryStream& input, bool metadataOnly)
+bool Beatmap::Load(BinaryStream& input, const String& chartPath, bool metadataOnly)
 {
 	ProfilerScope $("Load Beatmap");
-
+	m_settings.chartPath = chartPath;
 	if(!m_ProcessKShootMap(input, metadataOnly)) // Load KSH format first
 	{
 		// Load binary map format

@@ -16,7 +16,7 @@ Beatmap LoadTestBeatmap(const String& mapPath = testBeatmapPath)
 	File file;
 	TestEnsure(file.OpenRead(mapPath));
 	FileReader reader(file);
-	TestEnsure(beatmap.Load(reader));
+	TestEnsure(beatmap.Load(reader), mapPath);
 	return beatmap;
 }
 

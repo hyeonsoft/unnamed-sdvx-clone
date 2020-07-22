@@ -25,6 +25,8 @@ struct BeatmapSettings
 	// Path to the background and foreground shader files
 	String backgroundPath;
 	String foregroundPath;
+	// Path to the chart
+	String chartPath;
 
 	// Level, as indicated by map creator
 	uint8 level;
@@ -58,7 +60,7 @@ public:
 	Beatmap(Beatmap&& other);
 	Beatmap& operator=(Beatmap&& other);
 
-	bool Load(BinaryStream& input, bool metadataOnly = false);
+	bool Load(BinaryStream& input, const String& chartPath, bool metadataOnly = false);
 	// Saves the map as it's own format
 	bool Save(BinaryStream& output) const;
 
