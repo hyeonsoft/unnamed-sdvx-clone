@@ -54,7 +54,4 @@ Makefile
 
 # Document build files
 docs/build
-/out/build/x64-Debug(기본값)/.cmake/api/v1/query/client-MicrosoftVS/query.json
-/out/build/x64-Debug/.cmake/api/v1/query/client-MicrosoftVS/query.json
-/out/build/x64-Debug(기본값)/VSInheritEnvironments.txt
-/out/build/x64-Debug/VSInheritEnvironments.txt
+/out/build
