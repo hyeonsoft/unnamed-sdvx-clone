@@ -1934,6 +1934,24 @@ static int lLoadSkinFont(lua_State *L /*const char* name */)
 	return LoadFont(name, path.c_str(), L);
 }
 
+static int lLoadSample(lua_State* L /*char* name */)
+{
+	const char* name = luaL_checkstring(L, 1);
+	Sample newSample = g_application->LoadSample(name, true);
+	if (!newSample)
+	{
+		lua_Debug ar;
+		lua_getstack(L, 1, &ar);
+		lua_getinfo(L, "Snl", &ar);
+		String luaFilename;
+		Path::RemoveLast(ar.source, &luaFilename);
+		lua_pushstring(L, *Utility::Sprintf("Failed to load sample \"%s\" at line %d in \"%s\"", name, ar.currentline, luaFilename));
+		return lua_error(L);
+	}
+	g_application->StoreNamedSample(name, newSample);
+	return 0;
+}
+
 static int lLoadSkinSample(lua_State *L /*char* name */)
 {
 	const char *name = luaL_checkstring(L, 1);
@@ -2283,6 +2301,7 @@ void Application::SetLuaBindings(lua_State *state)
 		pushFuncToTable("GetMousePos", lGetMousePos);
 		pushFuncToTable("GetResolution", lGetResolution);
 		pushFuncToTable("Log", lLog);
+		pushFuncToTable("LoadSample", lLoadSample);
 		pushFuncToTable("LoadSkinSample", lLoadSkinSample);
 		pushFuncToTable("PlaySample", lPlaySample);
 		pushFuncToTable("StopSample", lStopSample);
