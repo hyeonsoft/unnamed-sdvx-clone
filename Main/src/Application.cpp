@@ -626,7 +626,7 @@ bool Application::m_Init()
 #endif
 
 #ifdef GIT_COMMIT
-	//Logf("Git commit: %s", Logger::Severity::Info, GIT_COMMIT);
+	Logf("Git commit: %s", Logger::Severity::Info, String(GIT_COMMIT));
 #endif // GIT_COMMIT
 
 	// Must have command line

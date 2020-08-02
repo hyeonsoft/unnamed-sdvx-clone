@@ -42,7 +42,7 @@ Ref<Beatmap> TryLoadMap(const String& path)
 		return Ref<Beatmap>();
 	}
 	FileReader reader(mapFile);
-	if(!newMap->Load(reader))
+	if(!newMap->Load(reader, path))
 	{
 		delete newMap;
 		return Ref<Beatmap>();
@@ -2144,6 +2144,7 @@ public:
 		lua_newtable(L);
 		String jacketPath = m_chartRootPath + "/" + mapSettings.jacketPath;
 		pushStringToTable("jacketPath", jacketPath);
+		pushStringToTable("chartPath", mapSettings.chartPath);
 		pushStringToTable("title", mapSettings.title);
 		pushStringToTable("artist", mapSettings.artist);
 

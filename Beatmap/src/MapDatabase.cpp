@@ -1221,7 +1221,7 @@ private:
 				{
 					FileReader reader(fileStream);
 
-					if(map.Load(reader, true))
+					if(map.Load(reader, f.first, true))
 					{
 						mapValid = true;
 					}

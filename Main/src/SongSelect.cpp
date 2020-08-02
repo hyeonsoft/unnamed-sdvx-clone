@@ -825,6 +825,7 @@ private:
 			lua_pushinteger(m_lua, ++diffIndex);
 			lua_newtable(m_lua);
 			m_PushStringToTable("jacketPath", Path::Normalize(song.GetFolder()->path + "/" + diff->jacket_path).c_str());
+			m_PushStringToTable("chartPath", diff->path.c_str());
 			m_PushIntToTable("level", diff->level);
 			m_PushIntToTable("difficulty", diff->diff_index);
 			m_PushIntToTable("id", diff->id);
