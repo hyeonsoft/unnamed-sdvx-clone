@@ -24,6 +24,9 @@ DefineEnum(GameConfigKeys,
 		   LogLevel,
 
 		   // Game settings
+		   HitWindowPerfect,
+		   HitWindowGood,
+		   HitWindowHold,
 		   HiSpeed,
 		   SpeedMod,
 		   ModSpeed,
@@ -43,6 +46,7 @@ DefineEnum(GameConfigKeys,
 		   GaugeDrainNormal,
 		   GaugeDrainHalf,
 
+		   EnableHiddenSudden,
 		   HiddenCutoff,
 		   HiddenFade,
 		   SuddenCutoff,
@@ -131,6 +135,8 @@ DefineEnum(GameConfigKeys,
 		   AutoResetSettings,		//Reset game settings after each song (good for convention setups)
 		   AutoResetToSpeed,		//Mod-Speed to reset to after each song (when AutoResetSettings is true)
 		   SlamThicknessMultiplier, //TODO: Remove after better values have been found(?)
+
+		   SettingsTreesOpen,
 
 		   EditorPath,
 		   EditorParamsFormat,
