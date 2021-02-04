@@ -119,11 +119,7 @@ class SettingsScreen_Impl : public SettingsScreen
 {
 private:
 	nk_context* m_nctx;
-	nk_font_atlas m_nfonts;
 
-	const char* m_speedMods[3] = { "XMod", "MMod", "CMod" };
-	const char* m_laserModes[3] = { "Keyboard", "Mouse", "Controller" };
-	const char* m_buttonModes[2] = { "Keyboard", "Controller" };
 	const Vector<const char*> m_aaModes = { "Off", "2x MSAA", "4x MSAA", "8x MSAA", "16x MSAA" };
 	Vector<String> m_gamePads;
 	Vector<String> m_skins;
@@ -680,6 +676,7 @@ public:
 			EnumSetting<Enum_ButtonComboModeSettings>(GameConfigKeys::UseBackCombo, "Use 3xBT+Start = Back:");
 			EnumSetting<Enum_InputDevice>(GameConfigKeys::ButtonInputDevice, "Button input mode:");
 			EnumSetting<Enum_InputDevice>(GameConfigKeys::LaserInputDevice, "Laser input mode:");
+			EnumSetting<Enum_LaserAxisOption>(GameConfigKeys::InvertLaserInput, "Invert laser input:");
 
 			if (m_gamePads.size() > 0)
 			{
@@ -858,7 +855,6 @@ public:
 			RenderSettingsLaserColor();
 
 			ToggleSetting(GameConfigKeys::DisplayPracticeInfoInGame, "Show practice info during gameplay");
-			ToggleSetting(GameConfigKeys::DisplayPracticeInfoInResult, "Show practice info on the result");
 
 			nk_tree_pop(m_nctx);
 		}
@@ -1030,7 +1026,7 @@ public:
 			m_gamepad = g_gameWindow->OpenGamepad(m_gamepadIndex);
 			if (!m_gamepad)
 			{
-				Logf("Failed to open gamepad: %s", Logger::Severity::Error, m_gamepadIndex);
+				Logf("Failed to open gamepad: %d", Logger::Severity::Error, m_gamepadIndex);
 				g_gameWindow->ShowMessageBox("Warning", "Could not open selected gamepad.\nEnsure the controller is connected and in the correct mode (if applicable) and selected in the previous menu.", 1);
 				return false;
 			}

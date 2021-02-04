@@ -7,6 +7,7 @@
 #include "HitStat.hpp"
 
 class MultiplayerScreen;
+class ChallengeManager;
 
 enum class GameFlags : uint32
 {
@@ -53,6 +54,7 @@ public:
 	virtual ~Game() = default;
 	static Game* Create(ChartIndex* chart, PlayOptions&& options);
 	static Game* Create(MultiplayerScreen*, ChartIndex* chart, PlayOptions&& options);
+	static Game* Create(ChallengeManager*, ChartIndex* chart, PlayOptions&& options);
 	static Game* Create(const String& mapPath, PlayOptions&& options);
 	static Game* CreatePractice(ChartIndex* chart, PlayOptions&& options);
 	static GameFlags FlagsFromSettings();
@@ -114,6 +116,8 @@ public:
 	// Warning: this returns 0 when the song is not playing (ex: end of the game).
 	virtual float GetPlaybackSpeed() = 0;
 
+	virtual const PlayOptions& GetPlayOptions() const = 0;
+
 	// Get lua state
 	virtual struct lua_State* GetLuaState() = 0;
 	// Set demo mode
@@ -132,4 +136,6 @@ public:
 
 	virtual int GetRetryCount() const = 0;
 	virtual String GetMissionStr() const = 0;
+
+	virtual void SetGauge(float) = 0;
 };
